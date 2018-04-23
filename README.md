@@ -28,6 +28,10 @@ node {
 }
 ```
 
+## Credentials
+
+If using the first form (`serviceAccountCredential`), the credential should be of the type **Secret file**, where the file is a JSON service account key obtained from the Google Cloud console.
+
 ## Setup
 
 You need to add this library to your Jenkins instance first. Under **Manage Jenkins -> Configure System**, scroll down until you find the **Global Pipeline Libraries** section, then add this repository like so:
