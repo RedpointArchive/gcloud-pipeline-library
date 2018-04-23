@@ -7,7 +7,7 @@ This repository contains a `gcloud` pipeline step that you can use to load servi
 You can use this step like so:
 
 ```groovy
-@Library("gcloud-pipeline-library")
+library "gcloud-pipeline-library"
 
 node {
   gcloud(serviceAccountCredential: 'my-credential-name') {
@@ -19,7 +19,7 @@ node {
 or alternatively:
 
 ```groovy
-@Library("gcloud-pipeline-library")
+library "gcloud-pipeline-library"
 
 node {
   gcloud(serviceAccountPath: 'path/to/service/account.json') {
