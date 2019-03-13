@@ -1,6 +1,6 @@
 def call(java.util.LinkedHashMap config, org.jenkinsci.plugins.workflow.cps.CpsClosure2 block) {
   def cwd = pwd()
-  sh 'mkdir .gcloud'
+  sh '(rm -Rf .gcloud || true) && mkdir .gcloud'
   try {
     withEnv([
       'CLOUDSDK_CONFIG=' + cwd + '/.gcloud', 
