@@ -22,12 +22,9 @@ def call(java.util.LinkedHashMap config, org.jenkinsci.plugins.workflow.cps.CpsC
 
       // Set up service account authentication in the temporary Google Cloud config path.
       sh 'gcloud config set pass_credentials_to_gsutil false'
-      sh 'echo -e "$GOOGLE_APPLICATION_CREDENTIALS\nn" | gsutil config -e -o "$CLOUDSDK_CONFIG/boto.cfg"'
+      sh 'echo "$GOOGLE_APPLICATION_CREDENTIALS" | gsutil config -e -o "$CLOUDSDK_CONFIG/boto.cfg"'
       sh 'gcloud auth activate-service-account --key-file="$GOOGLE_APPLICATION_CREDENTIALS"'
       sh 'gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://gcr.io'
-      sh 'gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://us.gcr.io'
-      sh 'gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://eu.gcr.io'
-      sh 'gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://asia.gcr.io'
 
       // Invoke the closure block that the user wants to execute, with all the appropriate
       // environment variables set.
