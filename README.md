@@ -34,7 +34,19 @@ If using the first form (`serviceAccountCredential`), the credential should be o
 
 ## Setup
 
-You need to add this library to your Jenkins instance first. Under **Manage Jenkins -> Configure System**, scroll down until you find the **Global Pipeline Libraries** section, then add this repository like so:
+You need to add this library to your Jenkins instance to use it.
+
+### Determine Version
+
+On this page, locate the current commit hash of the project. It is recommended that you use a commit hash instead of `master`, as this library is updated to support the latest `gcloud` commands (which can change in breaking ways when new SDK versions are released). The commit hash is located here:
+
+![The commit hash is shown next to "Latest commit"](./commit-hash.png)
+
+**WARNING:** If you use `master`, your builds might stop working when new updates are made to this library, and you might need to update the Google Cloud SDK installed on your build agents. In addition, updates to this library will cause all builds using this library to kick off, because Jenkins polls for changes to pipeline libraries and starts builds if they've changed. You probably don't want updates to this library kicking off builds on the weekend, so please, locate and use a commit hash as outlined above.
+
+### Install into Jenkins
+
+Under **Manage Jenkins -> Configure System**, scroll down until you find the **Global Pipeline Libraries** section, then add this repository like so:
 
 ![Setup Instructions](./setup.png)
 
