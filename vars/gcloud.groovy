@@ -3,8 +3,8 @@ def call(java.util.LinkedHashMap config, org.jenkinsci.plugins.workflow.cps.CpsC
   sh '(rm -Rf .gcloud || true) && mkdir .gcloud'
   try {
     withEnv([
-      'CLOUDSDK_CONFIG=' + cwd + '/.gcloud', 
-      'BOTO_CONFIG=' + cwd + '/.gcloud/boto.cfg', 
+      'CLOUDSDK_CONFIG=' + cwd + '/.gcloud',
+      'BOTO_CONFIG=' + cwd + '/.gcloud/boto.cfg',
       'GOOGLE_APPLICATION_CREDENTIALS=' + cwd + '/.gcloud/serviceaccount.json',
       'DOCKER_CONFIG=' + cwd + '/.gcloud/docker.config'
     ]) {
@@ -22,7 +22,8 @@ def call(java.util.LinkedHashMap config, org.jenkinsci.plugins.workflow.cps.CpsC
 
       // Set up service account authentication in the temporary Google Cloud config path.
       sh 'gcloud config set pass_credentials_to_gsutil false'
-      sh 'echo -e "$GOOGLE_APPLICATION_CREDENTIALS\nn" | gsutil config -e -o "$CLOUDSDK_CONFIG/boto.cfg"'
+      //sh 'echo -e "$GOOGLE_APPLICATION_CREDENTIALS\nn" | gsutil config -e -o "$CLOUDSDK_CONFIG/boto.cfg"'
+      sh 'printf "$GOOGLE_APPLICATION_CREDENTIALS\nn" | gsutil config -e -o "$CLOUDSDK_CONFIG/boto.cfg"'
       sh 'gcloud auth activate-service-account --key-file="$GOOGLE_APPLICATION_CREDENTIALS"'
       sh 'gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://gcr.io'
       sh 'gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://us.gcr.io'
